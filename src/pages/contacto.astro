@@ -1,0 +1,70 @@
+---
+import { ArrowRight } from '@lucide/astro';
+import PageHero from '../components/sections/PageHero.astro';
+import Button from '../components/ui/Button.astro';
+import ContactChannelCard from '../components/ui/ContactChannelCard.astro';
+import DraftNotice from '../components/ui/DraftNotice.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import { contactChannels } from '../data/site';
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Contacto"
+  description="Canales de contacto de Vivinka, asociación andina. Información oficial próximamente."
+>
+  <PageHero
+    eyebrow="Contacto"
+    title="Conversemos"
+    description="Estamos definiendo nuestros canales oficiales de atención. Mientras tanto, estas son las vías que habilitaremos próximamente."
+  />
+
+  <section class="section">
+    <div class="container-page">
+      <DraftNotice class="mb-12">
+        La información de contacto aún no ha sido confirmada. Los datos oficiales se publicarán en
+        cuanto la asociación los defina.
+      </DraftNotice>
+
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {contactChannels.map((channel) => <ContactChannelCard channel={channel} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-surface">
+    <div class="container-page grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
+      <SectionHeading
+        eyebrow="Mientras tanto"
+        title="Puedes conocer más sobre nuestro trabajo"
+        description="Explora las líneas de trabajo de la asociación y los proyectos que estamos preparando."
+      />
+
+      <div class="flex flex-wrap gap-3 lg:justify-end">
+        <Button href="/labor">
+          Nuestra labor
+          <ArrowRight class="size-4" aria-hidden="true" />
+        </Button>
+        <Button href="/proyectos" variant="secondary">Ver proyectos</Button>
+      </div>
+    </div>
+  </section>
+
+  <section class="pb-20 sm:pb-24">
+    <div class="container-page">
+      <div class="relative overflow-hidden rounded-[2.5rem] border border-line bg-canvas px-6 py-12 sm:px-12">
+        <div class="pattern-andean absolute inset-0 text-primary opacity-[0.05]" aria-hidden="true"></div>
+        <div class="relative max-w-2xl">
+          <p class="eyebrow">Comunidad</p>
+          <h2 class="mt-5 text-2xl leading-tight sm:text-3xl">
+            La mejor forma de conocer Vivinka es encontrarnos.
+          </h2>
+          <p class="mt-4 leading-relaxed text-muted">
+            Cuando el calendario de actividades esté disponible, lo compartiremos aquí y en nuestros
+            canales oficiales.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

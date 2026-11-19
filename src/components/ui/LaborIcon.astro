@@ -1,0 +1,31 @@
+---
+import {
+  GraduationCap,
+  HeartHandshake,
+  Mountain,
+  Music2,
+  Sprout,
+  Users,
+} from '@lucide/astro';
+import type { IconName } from '../../data/labor';
+
+interface Props {
+  name: IconName;
+  class?: string;
+}
+
+const { name, class: className } = Astro.props;
+
+const icons = {
+  music: Music2,
+  'graduation-cap': GraduationCap,
+  users: Users,
+  mountain: Mountain,
+  sprout: Sprout,
+  'heart-handshake': HeartHandshake,
+} as const;
+
+const Icon = icons[name];
+---
+
+<Icon class:list={['size-5', className]} aria-hidden="true" stroke-width={1.75} />

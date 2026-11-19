@@ -1,0 +1,87 @@
+---
+import { ArrowRight, Check } from '@lucide/astro';
+import Chakana from '../ui/Chakana.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+
+const highlights = [
+  {
+    title: 'Cultura viva',
+    text: 'Encuentros que mantienen presentes nuestras expresiones y saberes.',
+  },
+  {
+    title: 'Aprendizaje compartido',
+    text: 'Espacios formativos abiertos al intercambio entre generaciones.',
+  },
+  {
+    title: 'Vida comunitaria',
+    text: 'Vínculos de reciprocidad y cuidado con el territorio que habitamos.',
+  },
+];
+---
+
+<section class="section">
+  <div class="container-page grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-20">
+    <div>
+      <SectionHeading
+        eyebrow="Nosotros"
+        title="Una identidad que se comparte"
+        description="Vivinka se reconoce en lo andino: sus paisajes, sus saberes y su forma de hacer comunidad."
+      />
+
+      <p class="mt-5 leading-relaxed text-muted">
+        La asociación impulsa espacios de participación, aprendizaje e intercambio cultural,
+        entendiendo que nuestras raíces son una fuente viva de encuentro y futuro.
+      </p>
+
+      <ul class="mt-8 space-y-4">
+        {
+          highlights.map((item) => (
+            <li class="flex gap-3">
+              <span class="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-primary-soft text-primary">
+                <Check class="size-3.5" aria-hidden="true" stroke-width={2.5} />
+              </span>
+              <p class="text-sm leading-relaxed text-muted">
+                <strong class="font-semibold text-ink">{item.title}.</strong> {item.text}
+              </p>
+            </li>
+          ))
+        }
+      </ul>
+
+      <a href="/nosotros" class="link-arrow mt-8">
+        Conoce más sobre Vivinka
+        <ArrowRight class="size-4" aria-hidden="true" />
+      </a>
+    </div>
+
+    <div class="relative">
+      <div
+        class="pattern-andean absolute -left-4 -top-4 size-24 rounded-2xl text-primary opacity-15"
+        aria-hidden="true"
+      ></div>
+
+      <div class="relative overflow-hidden rounded-[2.5rem] bg-primary-dark p-8 text-white sm:p-12">
+        <div
+          class="pattern-andean absolute inset-0 text-white opacity-[0.07]"
+          aria-hidden="true"
+        ></div>
+
+        <div class="relative">
+          <Chakana class="size-10 text-white/30" />
+          <blockquote class="mt-7 font-serif text-2xl leading-snug text-balance sm:text-3xl">
+            «Un espacio para aprender, compartir y construir desde nuestras raíces.»
+          </blockquote>
+          <p class="mt-7 text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-white/50">
+            Identidad Vivinka
+          </p>
+        </div>
+      </div>
+
+      <div
+        class="absolute -bottom-5 -right-2 rounded-full bg-accent px-5 py-3 text-xs font-semibold uppercase tracking-[0.14em] text-white shadow-lg sm:-right-4"
+      >
+        Cultura viva
+      </div>
+    </div>
+  </div>
+</section>

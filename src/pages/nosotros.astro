@@ -1,0 +1,166 @@
+---
+import { HandHeart, Mountain, Sprout, Users } from '@lucide/astro';
+import ContactCTA from '../components/sections/ContactCTA.astro';
+import PageHero from '../components/sections/PageHero.astro';
+import DraftNotice from '../components/ui/DraftNotice.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import Layout from '../layouts/Layout.astro';
+
+// Contenido provisional: historia, misión, visión y valores deben validarse
+// con la asociación antes de la publicación definitiva.
+
+const values = [
+  {
+    icon: Mountain,
+    title: 'Identidad',
+    text: 'Valoramos la cultura andina como fuente de sentido y pertenencia.',
+  },
+  {
+    icon: Users,
+    title: 'Comunidad',
+    text: 'Creemos en el encuentro y la participación como base de lo que hacemos.',
+  },
+  {
+    icon: HandHeart,
+    title: 'Reciprocidad',
+    text: 'Entendemos el apoyo mutuo como una forma de sostenernos entre todos.',
+  },
+  {
+    icon: Sprout,
+    title: 'Respeto',
+    text: 'Cuidamos a las personas, los saberes y el territorio que compartimos.',
+  },
+];
+---
+
+<Layout
+  title="Nosotros"
+  description="Conoce la identidad de Vivinka, asociación andina dedicada a la cultura, el aprendizaje y la vida comunitaria."
+>
+  <PageHero
+    eyebrow="Nosotros"
+    title="Una asociación con raíces y mirada de futuro"
+    description="Vivinka se define desde lo andino: su cultura, sus saberes y su manera de hacer comunidad."
+  />
+
+  <section class="section">
+    <div class="container-page">
+      <DraftNotice class="mb-12">
+        Estamos reuniendo la historia, la misión y la visión oficiales de Vivinka. Los textos de esta
+        página son provisionales y se actualizarán con la información validada por la asociación.
+      </DraftNotice>
+
+      <div class="grid gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-start lg:gap-16">
+        <div>
+          <SectionHeading eyebrow="Quiénes somos" title="Identidad que se comparte" />
+
+          <div class="mt-5 space-y-4 leading-relaxed text-muted">
+            <p>
+              Vivinka es una asociación andina. Su identidad se expresa en la cultura, el aprendizaje
+              y la vida comunitaria, y en el vínculo con el territorio que habita.
+            </p>
+            <p>
+              La asociación busca generar espacios donde las personas puedan encontrarse, compartir
+              sus saberes y participar de iniciativas construidas desde la comunidad.
+            </p>
+            <p class="rounded-2xl border border-dashed border-line px-5 py-4 text-sm">
+              La historia y el recorrido de la asociación se incorporarán en este espacio cuando la
+              información sea confirmada.
+            </p>
+          </div>
+        </div>
+
+        <div class="relative overflow-hidden rounded-[2.5rem] bg-primary-dark p-8 text-white sm:p-10">
+          <div class="pattern-andean absolute inset-0 text-white opacity-[0.07]" aria-hidden="true"></div>
+
+          <div class="relative">
+            <p class="eyebrow eyebrow-light">Nuestro nombre</p>
+            <p class="mt-5 font-serif text-3xl">Vivinka</p>
+            <p class="mt-4 text-sm leading-relaxed text-white/70">
+              El significado y el origen del nombre serán documentados junto a la asociación.
+            </p>
+
+            <dl class="mt-8 grid grid-cols-2 gap-5 border-t border-white/15 pt-6">
+              <div>
+                <dt class="text-[0.6rem] font-semibold uppercase tracking-[0.18em] text-white/50">
+                  Naturaleza
+                </dt>
+                <dd class="mt-2 text-sm text-white/85">Asociación andina</dd>
+              </div>
+              <div>
+                <dt class="text-[0.6rem] font-semibold uppercase tracking-[0.18em] text-white/50">
+                  Ámbitos
+                </dt>
+                <dd class="mt-2 text-sm text-white/85">Cultura · Educación · Comunidad</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-surface">
+    <div class="container-page">
+      <SectionHeading
+        eyebrow="Misión y visión"
+        title="Hacia dónde caminamos"
+        description="Dos brújulas para orientar el trabajo de la asociación. Ambos textos están pendientes de validación."
+      />
+
+      <div class="mt-12 grid gap-5 md:grid-cols-2">
+        <article class="rounded-3xl border border-line bg-canvas p-8">
+          <div class="flex items-start justify-between gap-3">
+            <h3 class="text-2xl">Misión</h3>
+            <span class="rounded-full bg-surface px-3 py-1 text-[0.6rem] font-semibold uppercase tracking-[0.14em] text-muted">
+              Provisional
+            </span>
+          </div>
+          <p class="mt-4 leading-relaxed text-muted">
+            Promover el encuentro y la participación de la comunidad en torno a la cultura andina, el
+            aprendizaje y el cuidado del territorio.
+          </p>
+        </article>
+
+        <article class="rounded-3xl border border-line bg-canvas p-8">
+          <div class="flex items-start justify-between gap-3">
+            <h3 class="text-2xl">Visión</h3>
+            <span class="rounded-full bg-surface px-3 py-1 text-[0.6rem] font-semibold uppercase tracking-[0.14em] text-muted">
+              Provisional
+            </span>
+          </div>
+          <p class="mt-4 leading-relaxed text-muted">
+            Una comunidad que reconoce y comparte sus raíces, y que construye colectivamente un
+            futuro con identidad.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-page">
+      <SectionHeading
+        eyebrow="Valores"
+        title="Lo que nos sostiene"
+        description="Principios que orientan la manera de encontrarnos y de trabajar juntos."
+      />
+
+      <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          values.map(({ icon: Icon, title, text }) => (
+            <article class="rounded-3xl border border-line bg-canvas p-7">
+              <span class="grid size-11 place-items-center rounded-2xl bg-primary-soft text-primary">
+                <Icon class="size-5" aria-hidden="true" stroke-width={1.75} />
+              </span>
+              <h3 class="mt-5 text-lg">{title}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-muted">{text}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <ContactCTA />
+</Layout>

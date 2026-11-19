@@ -1,0 +1,108 @@
+---
+import { Check } from '@lucide/astro';
+import ContactCTA from '../components/sections/ContactCTA.astro';
+import PageHero from '../components/sections/PageHero.astro';
+import DraftNotice from '../components/ui/DraftNotice.astro';
+import Button from '../components/ui/Button.astro';
+import LaborIcon from '../components/ui/LaborIcon.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import { laborAreas, participationSteps } from '../data/labor';
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Nuestra labor"
+  description="Ámbitos de trabajo de Vivinka: cultura viva, aprendizaje y vida comunitaria en el territorio andino."
+>
+  <PageHero
+    eyebrow="Nuestra labor"
+    title="Cultura, aprendizaje y comunidad en movimiento"
+    description="Tres ejes de trabajo que se entrelazan y se nutren entre sí, siempre desde la participación de la comunidad."
+  />
+
+  <section class="pb-4 pt-14 sm:pt-16">
+    <div class="container-page">
+      <DraftNotice>
+        Las líneas de trabajo están definidas de manera general. Las actividades, fechas y alcances
+        concretos se publicarán cuando la asociación los confirme.
+      </DraftNotice>
+    </div>
+  </section>
+
+  {
+    laborAreas.map((area, index) => (
+      <section
+        id={area.id}
+        class:list={['section', index % 2 === 1 && 'bg-surface']}
+      >
+        <div class="container-page grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
+          <div>
+            <p class="eyebrow">{area.eyebrow}</p>
+            <h2 class="mt-4 text-3xl leading-tight sm:text-4xl">{area.title}</h2>
+            <p class="mt-5 leading-relaxed text-muted">{area.summary}</p>
+
+            <div class="mt-8 flex items-center gap-4">
+              <span class="grid size-12 place-items-center rounded-2xl bg-primary text-white">
+                <LaborIcon name={area.icon} />
+              </span>
+              <span class="font-serif text-5xl leading-none text-primary/15">
+                0{index + 1}
+              </span>
+            </div>
+          </div>
+
+          <div class="rounded-3xl border border-line bg-canvas p-7 sm:p-9">
+            <h3 class="font-sans text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-muted">
+              Qué hacemos en este eje
+            </h3>
+            <ul class="mt-6 space-y-4">
+              {area.points.map((point) => (
+                <li class="flex gap-3">
+                  <span class="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-primary-soft text-primary">
+                    <Check class="size-3.5" aria-hidden="true" stroke-width={2.5} />
+                  </span>
+                  <span class="text-sm leading-relaxed text-muted">{point}</span>
+                </li>
+              ))}
+            </ul>
+            <p class="mt-7 border-t border-line pt-5 text-xs leading-relaxed text-muted">
+              Las actividades concretas se anunciarán oportunamente en esta página y en nuestros
+              canales oficiales.
+            </p>
+          </div>
+        </div>
+      </section>
+    ))
+  }
+
+  <section class="section bg-surface">
+    <div class="container-page">
+      <SectionHeading
+        align="center"
+        eyebrow="Participa"
+        title="Cómo acercarte a Vivinka"
+        description="No necesitas experiencia previa: solo las ganas de encontrarte y compartir."
+      />
+
+      <ol class="mt-12 grid gap-5 md:grid-cols-3">
+        {
+          participationSteps.map((step, index) => (
+            <li class="rounded-3xl border border-line bg-canvas p-8">
+              <span class="grid size-11 place-items-center rounded-full bg-primary-soft font-serif text-lg font-semibold text-primary">
+                {index + 1}
+              </span>
+              <h3 class="mt-5 text-xl">{step.title}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-muted">{step.description}</p>
+            </li>
+          ))
+        }
+      </ol>
+
+      <div class="mt-10 flex justify-center">
+        <Button href="/contacto">Quiero participar</Button>
+      </div>
+    </div>
+  </section>
+
+  <ContactCTA />
+</Layout>

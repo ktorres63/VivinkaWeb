@@ -1,0 +1,62 @@
+---
+import Button from '../ui/Button.astro';
+import Logo from '../ui/Logo.astro';
+import { site } from '../../data/site';
+
+const year = new Date().getFullYear();
+const navItems = site.nav.filter((item) => item.href !== '/contacto');
+---
+
+<footer class="relative overflow-hidden bg-primary-dark text-white">
+  <div class="pattern-andean absolute inset-0 text-white opacity-[0.05]" aria-hidden="true"></div>
+
+  <div class="container-page relative py-16 sm:py-20">
+    <div class="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
+      <div>
+        <Logo tone="light" />
+        <p class="mt-6 max-w-xs text-sm leading-relaxed text-white/70">
+          Asociación andina dedicada a la cultura, el aprendizaje y la vida comunitaria.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="font-sans text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-white/50">
+          Explorar
+        </h2>
+        <ul class="mt-5 space-y-3">
+          {
+            navItems.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class="text-sm text-white/75 transition-colors hover:text-white"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="font-sans text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-white/50">
+          Contacto
+        </h2>
+        <p class="mt-5 max-w-xs text-sm leading-relaxed text-white/70">
+          La información oficial de contacto se publicará próximamente.
+        </p>
+        <Button href="/contacto" variant="light" class="mt-5 px-5 py-2.5">
+          Ir a contacto
+        </Button>
+      </div>
+    </div>
+
+    <div
+      class="mt-14 flex flex-col gap-3 border-t border-white/10 pt-6 text-xs text-white/50 sm:flex-row sm:items-center sm:justify-between"
+    >
+      <p>© {year} {site.name}. Todos los derechos reservados.</p>
+      <p>{site.tagline} · Cultura, comunidad y territorio</p>
+    </div>
+  </div>
+</footer>

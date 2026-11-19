@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: "Fraunces", ui-serif, Georgia, Cambria, "Times New Roman", serif;
+
+  --color-primary: #0a6808;
+  --color-primary-dark: #064705;
+  --color-primary-soft: #eef5ee;
+  --color-accent: #f20505;
+  --color-accent-dark: #c40404;
+  --color-canvas: #ffffff;
+  --color-surface: #f4f6f5;
+  --color-ink: #1a221b;
+  --color-muted: #5c665e;
+  --color-line: #dfe5e0;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-canvas font-sans text-ink antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-serif font-semibold text-ink;
+    letter-spacing: -0.015em;
+  }
+
+  ::selection {
+    @apply bg-primary text-white;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+  [id] {
+    scroll-margin-top: 6rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+
+  .section {
+    @apply py-20 sm:py-24;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2.5 text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-primary;
+  }
+
+  .eyebrow::before {
+    content: "";
+    @apply size-1.5 shrink-0 rotate-45 bg-accent;
+  }
+
+  .eyebrow-light {
+    @apply text-white/70;
+  }
+
+  .eyebrow-light::before {
+    @apply bg-accent;
+  }
+
+  .pattern-andean {
+    background-color: currentColor;
+    -webkit-mask-image: url("/images/andean-pattern.svg");
+    mask-image: url("/images/andean-pattern.svg");
+    -webkit-mask-size: 72px 72px;
+    mask-size: 72px 72px;
+    -webkit-mask-repeat: repeat;
+    mask-repeat: repeat;
+  }
+
+  .card-hover {
+    @apply transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_-32px_rgba(10,104,8,0.35)];
+  }
+
+  .link-arrow {
+    @apply inline-flex items-center gap-2 text-sm font-semibold text-primary transition-colors hover:text-primary-dark;
+  }
+}

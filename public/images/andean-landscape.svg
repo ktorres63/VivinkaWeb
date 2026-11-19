@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e9f1e9" />
+      <stop offset="0.65" stop-color="#f7faf7" />
+      <stop offset="1" stop-color="#ffffff" />
+    </linearGradient>
+    <linearGradient id="far" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#c8dcc9" />
+      <stop offset="1" stop-color="#a6c4a8" />
+    </linearGradient>
+    <linearGradient id="mid" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#79a67b" />
+      <stop offset="1" stop-color="#4d8350" />
+    </linearGradient>
+    <linearGradient id="near" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0f7a0c" />
+      <stop offset="1" stop-color="#064705" />
+    </linearGradient>
+    <linearGradient id="front" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#075a06" />
+      <stop offset="1" stop-color="#043804" />
+    </linearGradient>
+    <pattern id="weave" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M24 4 44 24 24 44 4 24Z" fill="none" stroke="#ffffff" stroke-opacity="0.22" stroke-width="1" />
+      <path d="M24 14 34 24 24 34 14 24Z" fill="none" stroke="#ffffff" stroke-opacity="0.16" stroke-width="1" />
+    </pattern>
+  </defs>
+
+  <rect width="800" height="1000" fill="url(#sky)" />
+
+  <circle cx="566" cy="236" r="104" fill="#f2c94c" opacity="0.45" />
+  <circle cx="566" cy="236" r="66" fill="#f5d982" opacity="0.55" />
+
+  <path d="M0 560 96 470 168 522 268 386 352 470 424 410 512 496 604 402 700 500 800 430V1000H0Z" fill="url(#far)" />
+  <path d="M0 650 92 556 176 610 290 496 380 584 466 512 566 606 654 526 740 600 800 556V1000H0Z" fill="url(#mid)" opacity="0.9" />
+  <path d="M0 760 118 646 210 712 330 604 438 704 536 630 644 724 748 646 800 690V1000H0Z" fill="url(#near)" />
+  <path d="M0 796 132 716 232 776 352 700 452 770 566 704 672 778 780 718 800 732V1000H0Z" fill="url(#front)" />
+  <path d="M0 796 132 716 232 776 352 700 452 770 566 704 672 778 780 718 800 732V1000H0Z" fill="url(#weave)" opacity="0.5" />
+
+  <g fill="#ffffff" opacity="0.5">
+    <path d="M150 890h22v-22h22v22h22v22h-22v22h-22v-22h-22Z" />
+    <path d="M600 850h18v-18h18v18h18v18h-18v18h-18v-18h-18Z" opacity="0.7" />
+  </g>
+</svg>

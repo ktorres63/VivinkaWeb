@@ -1,0 +1,29 @@
+---
+import { ArrowRight } from '@lucide/astro';
+import { galleryItems } from '../../data/gallery';
+import Button from '../ui/Button.astro';
+import GalleryTile from '../ui/GalleryTile.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+
+const preview = galleryItems.slice(0, 4);
+---
+
+<section class="section bg-surface">
+  <div class="container-page">
+    <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+      <SectionHeading
+        eyebrow="Galería"
+        title="Miradas de lo que somos"
+        description="Un espacio para las imágenes de nuestros encuentros, talleres y paisajes. Las fotografías se incorporarán cuando la asociación las comparta."
+      />
+      <Button href="/galeria" variant="secondary" class="shrink-0">
+        Ver galería
+        <ArrowRight class="size-4" aria-hidden="true" />
+      </Button>
+    </div>
+
+    <div class="mt-12 grid grid-cols-2 gap-4 lg:grid-cols-4">
+      {preview.map((item, index) => <GalleryTile item={item} index={index} />)}
+    </div>
+  </div>
+</section>

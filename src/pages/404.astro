@@ -1,0 +1,30 @@
+---
+import Button from '../components/ui/Button.astro';
+import Chakana from '../components/ui/Chakana.astro';
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Página no encontrada"
+  description="La página que buscas no existe o ha cambiado de dirección."
+>
+  <section class="relative overflow-hidden">
+    <div class="pattern-andean absolute inset-0 text-primary opacity-[0.05]" aria-hidden="true"></div>
+    <div class="container-page relative flex min-h-[60vh] flex-col items-center justify-center py-20 text-center">
+      <span class="grid size-16 place-items-center rounded-3xl bg-primary-soft text-primary">
+        <Chakana class="size-9" />
+      </span>
+      <p class="eyebrow mt-8">Error 404</p>
+      <h1 class="mt-4 max-w-xl text-4xl leading-tight text-balance sm:text-5xl">
+        Esta página no está en nuestro camino
+      </h1>
+      <p class="mt-4 max-w-md leading-relaxed text-muted">
+        Puede que el enlace haya cambiado o que la página todavía no exista. Volvamos al inicio.
+      </p>
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <Button href="/">Ir al inicio</Button>
+        <Button href="/contacto" variant="secondary">Contacto</Button>
+      </div>
+    </div>
+  </section>
+</Layout>

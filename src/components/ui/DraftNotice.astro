@@ -1,0 +1,22 @@
+---
+import { PencilLine } from '@lucide/astro';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<aside
+  class:list={[
+    'flex items-start gap-3 rounded-2xl border border-line bg-surface px-5 py-4 text-sm leading-relaxed text-muted',
+    className,
+  ]}
+>
+  <PencilLine class="mt-0.5 size-4 shrink-0 text-primary" aria-hidden="true" />
+  <p>
+    <strong class="font-semibold text-ink">Contenido en preparación.</strong>
+    <slot />
+  </p>
+</aside>

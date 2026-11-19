@@ -1,0 +1,87 @@
+---
+import { ChevronDown, Menu } from '@lucide/astro';
+import Button from '../ui/Button.astro';
+import { site } from '../../data/site';
+
+const pathname = Astro.url.pathname;
+const navItems = site.nav.filter((item) => item.href !== '/contacto');
+const isActive = (href: string) => (href === '/' ? pathname === '/' : pathname.startsWith(href));
+---
+
+<header class="sticky top-0 z-50 border-b border-line/80 bg-canvas/90 backdrop-blur-md">
+  <div class="container-page flex h-20 items-center justify-between gap-4">
+    <a href="/" class="inline-flex items-center rounded-xl" aria-label="Vivinka — Ir al inicio">
+      <img
+        src="/images/vivinkaLogo.png"
+        alt="Vivinka"
+        width="768"
+        height="325"
+        class="h-12 w-auto object-contain sm:h-14"
+      />
+    </a>
+
+    <nav class="hidden items-center gap-1 lg:flex" aria-label="Navegación principal">
+      {
+        navItems.map((item) => (
+          <a
+            // href={item.href}
+            href="#"
+            aria-current={isActive(item.href) ? 'page' : undefined}
+            class:list={[
+              'rounded-full px-4 py-2 text-sm font-medium transition-colors',
+              isActive(item.href)
+                ? 'bg-primary-soft text-primary'
+                : 'text-muted hover:bg-surface hover:text-ink',
+            ]}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="hidden lg:block">
+      <Button href="/contacto" class="px-5 py-2.5">Contacto</Button>
+    </div>
+
+    <details class="group relative lg:hidden">
+      <summary
+        class="flex cursor-pointer list-none items-center gap-2 rounded-full border border-line px-4 py-2.5 text-sm font-semibold text-ink [&::-webkit-details-marker]:hidden"
+      >
+        <Menu class="size-4 text-primary" aria-hidden="true" />
+        Menú
+        <ChevronDown
+          class="size-4 text-muted transition-transform duration-200 group-open:rotate-180"
+          aria-hidden="true"
+        />
+      </summary>
+
+      <div
+        class="absolute right-0 mt-3 w-64 overflow-hidden rounded-2xl border border-line bg-canvas p-2 shadow-xl"
+      >
+        <nav aria-label="Navegación móvil">
+          <ul class="flex flex-col">
+            {
+              site.nav.map((item) => (
+                <li>
+                  <a
+                    href={item.href}
+                    aria-current={isActive(item.href) ? 'page' : undefined}
+                    class:list={[
+                      'flex items-center justify-between rounded-xl px-4 py-3 text-sm font-medium transition-colors',
+                      isActive(item.href)
+                        ? 'bg-primary-soft text-primary'
+                        : 'text-ink hover:bg-surface',
+                    ]}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </div>
+    </details>
+  </div>
+</header>
