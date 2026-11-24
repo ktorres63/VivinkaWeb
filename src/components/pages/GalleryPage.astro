@@ -1,0 +1,40 @@
+---
+import ContactCTA from '../sections/ContactCTA.astro';
+import PageHero from '../sections/PageHero.astro';
+import DraftNotice from '../ui/DraftNotice.astro';
+import GalleryTile from '../ui/GalleryTile.astro';
+import { galleryItems } from '../../data/gallery';
+import { getTranslations } from '../../i18n';
+import type { Locale } from '../../i18n';
+import Layout from '../../layouts/Layout.astro';
+
+const locale = (Astro.currentLocale ?? 'es') as Locale;
+const t = getTranslations(locale);
+const copy = t.gallery;
+const items = galleryItems[locale];
+---
+
+<Layout title={t.meta.gallery.title} description={t.meta.gallery.description}>
+  <PageHero
+    eyebrow={copy.hero.eyebrow}
+    title={copy.hero.title}
+    description={copy.hero.description}
+  />
+
+  <section class="section">
+    <div class="container-page">
+      <DraftNotice class="mb-12">{copy.draft}</DraftNotice>
+
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {items.map((item, index) => <GalleryTile item={item} index={index} />)}
+      </div>
+
+      <div class="mt-12 rounded-3xl border border-dashed border-line px-6 py-10 text-center">
+        <p class="font-serif text-xl text-ink">{copy.shareTitle}</p>
+        <p class="mx-auto mt-2 max-w-lg text-sm leading-relaxed text-muted">{copy.shareText}</p>
+      </div>
+    </div>
+  </section>
+
+  <ContactCTA />
+</Layout>

@@ -1,0 +1,114 @@
+---
+import { ArrowRight, ArrowUpRight } from '@lucide/astro';
+import ContactCTA from '../sections/ContactCTA.astro';
+import PageHero from '../sections/PageHero.astro';
+import Button from '../ui/Button.astro';
+import DraftNotice from '../ui/DraftNotice.astro';
+import LaborIcon from '../ui/LaborIcon.astro';
+import ProjectCard from '../ui/ProjectCard.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import { activitySlots, projectSlots } from '../../data/projects';
+import { laborAreas } from '../../data/labor';
+import { getTranslations, localePath } from '../../i18n';
+import type { Locale } from '../../i18n';
+import Layout from '../../layouts/Layout.astro';
+
+const locale = (Astro.currentLocale ?? 'es') as Locale;
+const t = getTranslations(locale);
+const copy = t.projects;
+const areas = laborAreas[locale];
+const projects = projectSlots[locale];
+const activities = activitySlots[locale];
+---
+
+<Layout title={t.meta.projects.title} description={t.meta.projects.description}>
+  <PageHero
+    eyebrow={copy.hero.eyebrow}
+    title={copy.hero.title}
+    description={copy.hero.description}
+  />
+
+  <section class="pt-14 sm:pt-16">
+    <div class="container-page">
+      <DraftNotice>{copy.draft}</DraftNotice>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-page">
+      <SectionHeading
+        eyebrow={copy.lines.eyebrow}
+        title={copy.lines.title}
+        description={copy.lines.description}
+      />
+
+      <div class="mt-12 grid gap-5 md:grid-cols-3">
+        {
+          areas.map((area) => (
+            <article class="flex h-full flex-col rounded-3xl border border-line bg-canvas p-7">
+              <span class="grid size-12 place-items-center rounded-2xl bg-primary-soft text-primary">
+                <LaborIcon name={area.icon} />
+              </span>
+              <h3 class="mt-5 text-lg">{area.title}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-muted">{area.summary}</p>
+              <a href={localePath(locale, `/labor#${area.id}`)} class="link-arrow mt-auto pt-6">
+                {copy.lines.link}
+                <ArrowUpRight class="size-4" aria-hidden="true" />
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-surface">
+    <div class="container-page">
+      <SectionHeading
+        eyebrow={copy.slots.eyebrow}
+        title={copy.slots.title}
+        description={copy.slots.description}
+      />
+
+      <div class="mt-12 grid gap-5 md:grid-cols-3">
+        {projects.map((project) => <ProjectCard project={project} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-page grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
+      <div>
+        <SectionHeading
+          eyebrow={copy.activities.eyebrow}
+          title={copy.activities.title}
+          description={copy.activities.description}
+        />
+        <Button href={localePath(locale, '/contacto')} class="mt-7">
+          {copy.activities.cta}
+          <ArrowRight class="size-4" aria-hidden="true" />
+        </Button>
+      </div>
+
+      <ul class="divide-y divide-line overflow-hidden rounded-3xl border border-line bg-canvas">
+        {
+          activities.map((activity) => (
+            <li class="flex flex-wrap items-center justify-between gap-4 px-6 py-5">
+              <div>
+                <p class="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-primary">
+                  {activity.category}
+                </p>
+                <p class="mt-1.5 font-serif text-lg text-ink">{activity.title}</p>
+              </div>
+              <span class="rounded-full bg-surface px-3 py-1.5 text-xs font-medium text-muted">
+                {activity.date}
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <ContactCTA />
+</Layout>

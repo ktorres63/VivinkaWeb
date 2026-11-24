@@ -1,10 +1,20 @@
 ---
-import Button from '../ui/Button.astro';
 import Logo from '../ui/Logo.astro';
-import { site } from '../../data/site';
+import SocialLinks from '../ui/SocialLinks.astro';
+import { getTranslations, localePath } from '../../i18n';
+import type { Locale } from '../../i18n';
 
+const locale = (Astro.currentLocale ?? 'es') as Locale;
+const t = getTranslations(locale);
 const year = new Date().getFullYear();
-const navItems = site.nav.filter((item) => item.href !== '/contacto');
+
+const navItems = [
+  { label: t.nav.home, href: '/' },
+  { label: t.nav.about, href: '/nosotros' },
+  { label: t.nav.labor, href: '/labor' },
+  { label: t.nav.projects, href: '/proyectos' },
+  { label: t.nav.gallery, href: '/galeria' },
+];
 ---
 
 <footer class="relative overflow-hidden bg-primary-dark text-white">
@@ -14,21 +24,20 @@ const navItems = site.nav.filter((item) => item.href !== '/contacto');
     <div class="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
       <div>
         <Logo tone="light" />
-        <p class="mt-6 max-w-xs text-sm leading-relaxed text-white/70">
-          Asociación andina dedicada a la cultura, el aprendizaje y la vida comunitaria.
-        </p>
+        <p class="mt-6 max-w-xs text-sm leading-relaxed text-white/70">{t.footer.description}</p>
+        <SocialLinks locale={locale} class="footer-social mt-6" />
       </div>
 
       <div>
         <h2 class="font-sans text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-white/50">
-          Explorar
+          {t.footer.explore}
         </h2>
         <ul class="mt-5 space-y-3">
           {
             navItems.map((item) => (
               <li>
                 <a
-                  href={item.href}
+                  href={localePath(locale, item.href)}
                   class="text-sm text-white/75 transition-colors hover:text-white"
                 >
                   {item.label}
@@ -41,22 +50,23 @@ const navItems = site.nav.filter((item) => item.href !== '/contacto');
 
       <div>
         <h2 class="font-sans text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-white/50">
-          Contacto
+          {t.footer.contact}
         </h2>
-        <p class="mt-5 max-w-xs text-sm leading-relaxed text-white/70">
-          La información oficial de contacto se publicará próximamente.
-        </p>
-        <Button href="/contacto" variant="light" class="mt-5 px-5 py-2.5">
-          Ir a contacto
-        </Button>
+        <p class="mt-5 max-w-xs text-sm leading-relaxed text-white/70">{t.footer.contactPending}</p>
+        <a
+          href={localePath(locale, '/contacto')}
+          class="mt-5 inline-flex items-center justify-center rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-primary-dark transition-colors hover:bg-primary-soft"
+        >
+          {t.footer.goToContact}
+        </a>
       </div>
     </div>
 
     <div
       class="mt-14 flex flex-col gap-3 border-t border-white/10 pt-6 text-xs text-white/50 sm:flex-row sm:items-center sm:justify-between"
     >
-      <p>© {year} {site.name}. Todos los derechos reservados.</p>
-      <p>{site.tagline} · Cultura, comunidad y territorio</p>
+      <p>© {year} Vivinka. {t.footer.rights}</p>
+      <p>{t.footer.tagline}</p>
     </div>
   </div>
 </footer>

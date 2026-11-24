@@ -21,15 +21,56 @@ gestionar con `astro dev status`, `astro dev logs` y `astro dev stop`.
 src/
 ├── components/
 │   ├── layout/      # Encabezado y pie de página
+│   ├── pages/       # Cuerpo reutilizable de cada página (usado por es/ y en/)
 │   ├── sections/    # Secciones reutilizables (hero, CTA, etc.)
 │   └── ui/          # Componentes pequeños (botones, tarjetas, iconos)
-├── data/            # Contenido editable (navegación, labor, proyectos, galería)
+├── data/            # Contenido editable por idioma (navegación, labor, proyectos, galería)
+├── i18n/            # Diccionarios de textos y utilidades de idioma
 ├── layouts/         # Layout base con metadatos y SEO
-├── pages/           # Inicio, nosotros, labor, proyectos, galería, contacto, 404
+├── pages/           # Rutas: raíz (es) y /en (en)
 └── styles/          # Tokens de marca y estilos globales
 public/
 └── images/          # Ilustraciones y fotografías
 ```
+
+## Internacionalización
+
+Se usa el enrutado i18n nativo de Astro (`src/i18n/`):
+
+| Español (por defecto) | Inglés               |
+| :--------------------- | :------------------- |
+| `/`                    | `/en/`               |
+| `/nosotros/`           | `/en/nosotros/`      |
+| `/labor/`              | `/en/labor/`         |
+| `/proyectos/`          | `/en/proyectos/`     |
+| `/galeria/`            | `/en/galeria/`       |
+| `/contacto/`           | `/en/contacto/`      |
+
+- Los textos de interfaz viven en `src/i18n/ui.ts` (el diccionario `es` define el tipo, por lo que
+  TypeScript avisa si falta una traducción en `en`).
+- El contenido estructurado (hero, líneas de trabajo, proyectos, galería, contacto) se guarda por
+  idioma en `src/data/`.
+- En los componentes se usa `Astro.currentLocale` y `localePath(locale, path)` para construir
+  enlaces localizados.
+- El `Layout` genera `hreflang` (`es`, `en`, `x-default`) y el atributo `lang` correcto.
+
+Para añadir un idioma: crear su carpeta en `src/pages/`, añadir el locale en
+`astro.config.mjs` y en `src/i18n/config.ts`, y duplicar los diccionarios de `src/i18n/ui.ts` y
+`src/data/`.
+
+## Encabezado
+
+- Variante `overlay` (página de inicio): fijo, transparente sobre el hero, con texto blanco y la
+  versión clara del logotipo (`public/images/vivinkaLogoLight.png`, fondo transparente) para que
+  resalte sobre la fotografía.
+- Variante `solid` (páginas interiores): fijo, con fondo blanco translúcido, borde inferior y el
+  logotipo original en verde (`public/images/vivinkaLogo.png`).
+- Al desplazarse, el encabezado transparente pasa a sólido mediante la clase `is-scrolled` y el
+  logotipo cambia automáticamente al original en verde (`public/images/vivinkaLogo.png`).
+- Incluye redes sociales (`src/components/ui/SocialLinks.astro`) y selector de idioma
+  (`src/components/ui/LanguageSwitcher.astro`).
+- Botón flotante de WhatsApp (`src/components/ui/WhatsAppButton.astro`) en la esquina inferior
+  derecha, presente en todas las páginas.
 
 ## Contenido pendiente de validación
 
@@ -41,7 +82,10 @@ Siguiendo las pautas del proyecto, no se inventó información institucional. An
 - **Galería:** añadir fotografías reales en `public/images/galeria/` y completar `src`
   y `alt` en `src/data/gallery.ts`. Publicar solo imágenes autorizadas.
 - **Dominio:** actualizar `site` en `astro.config.mjs` y `src/data/site.ts`.
-- **Redes sociales:** incorporar los perfiles oficiales cuando estén definidos.
+- **Redes sociales:** sustituir los `href` de `src/data/site.ts` (`socialLinks`) por los perfiles
+  oficiales de Vivinka.
+- **Traducciones:** el inglés ya está completo; conviene revisarlo con un hablante nativo antes de
+  publicar.
 
 ## Identidad visual
 

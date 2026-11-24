@@ -1,6 +1,8 @@
 ---
 import { ImageIcon } from '@lucide/astro';
 import type { GalleryItem, GalleryTone } from '../../data/gallery';
+import { getTranslations } from '../../i18n';
+import type { Locale } from '../../i18n';
 
 interface Props {
   item: GalleryItem;
@@ -9,6 +11,8 @@ interface Props {
 }
 
 const { item, index, class: className } = Astro.props;
+const locale = (Astro.currentLocale ?? 'es') as Locale;
+const t = getTranslations(locale);
 
 const tones: Record<GalleryTone, { shell: string; caption: string }> = {
   deep: { shell: 'bg-primary-dark text-white', caption: 'border-white/15 text-white/65' },
@@ -61,7 +65,7 @@ const number = String(index + 1).padStart(2, '0');
       tone.caption,
     ]}
   >
-    <span>{item.src ? item.title : 'Fotografía por incorporar'}</span>
+    <span>{item.src ? item.title : t.common.photoPending}</span>
     <span class="font-semibold tracking-[0.08em]">{number}</span>
   </figcaption>
 </figure>

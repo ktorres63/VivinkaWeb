@@ -1,0 +1,31 @@
+---
+import Button from '../ui/Button.astro';
+import Chakana from '../ui/Chakana.astro';
+import { getTranslations, localePath } from '../../i18n';
+import type { Locale } from '../../i18n';
+import Layout from '../../layouts/Layout.astro';
+
+const locale = (Astro.currentLocale ?? 'es') as Locale;
+const t = getTranslations(locale);
+const copy = t.notFound;
+---
+
+<Layout title={t.meta.notFound.title} description={t.meta.notFound.description}>
+  <section class="relative overflow-hidden">
+    <div class="pattern-andean absolute inset-0 text-primary opacity-[0.05]" aria-hidden="true"></div>
+    <div class="container-page relative flex min-h-[60vh] flex-col items-center justify-center py-20 text-center">
+      <span class="grid size-16 place-items-center rounded-3xl bg-primary-soft text-primary">
+        <Chakana class="size-9" />
+      </span>
+      <p class="eyebrow mt-8">{copy.eyebrow}</p>
+      <h1 class="mt-4 max-w-xl text-4xl leading-tight text-balance sm:text-5xl">{copy.title}</h1>
+      <p class="mt-4 max-w-md leading-relaxed text-muted">{copy.description}</p>
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <Button href={localePath(locale, '/')}>{copy.home}</Button>
+        <Button href={localePath(locale, '/contacto')} variant="secondary">
+          {t.nav.contact}
+        </Button>
+      </div>
+    </div>
+  </section>
+</Layout>

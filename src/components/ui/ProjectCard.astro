@@ -1,11 +1,15 @@
 ---
 import type { ProjectSlot } from '../../data/projects';
+import { getTranslations } from '../../i18n';
+import type { Locale } from '../../i18n';
 
 interface Props {
   project: ProjectSlot;
 }
 
 const { project } = Astro.props;
+const locale = (Astro.currentLocale ?? 'es') as Locale;
+const t = getTranslations(locale);
 ---
 
 <article class="card-hover flex h-full flex-col rounded-3xl border border-line bg-canvas p-7">
@@ -22,7 +26,5 @@ const { project } = Astro.props;
   </p>
   <h3 class="mt-2 text-xl">{project.title}</h3>
   <p class="mt-3 text-sm leading-relaxed text-muted">{project.summary}</p>
-  <span class="mt-auto pt-6 text-xs font-medium text-muted/80">
-    Información por confirmar
-  </span>
+  <span class="mt-auto pt-6 text-xs font-medium text-muted/80">{t.common.infoPending}</span>
 </article>

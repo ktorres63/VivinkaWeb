@@ -4,24 +4,27 @@ import { projectSlots } from '../../data/projects';
 import Button from '../ui/Button.astro';
 import ProjectCard from '../ui/ProjectCard.astro';
 import SectionHeading from '../ui/SectionHeading.astro';
+import { getTranslations, localePath } from '../../i18n';
+import type { Locale } from '../../i18n';
+
+const locale = (Astro.currentLocale ?? 'es') as Locale;
+const t = getTranslations(locale);
+const copy = t.home.projects;
+const projects = projectSlots[locale];
 ---
 
 <section class="section">
   <div class="container-page">
     <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-      <SectionHeading
-        eyebrow="Proyectos y actividades"
-        title="Lo que estamos preparando"
-        description="Estamos dando forma a las primeras iniciativas de Vivinka. Pronto compartiremos aquí sus objetivos y avances."
-      />
-      <Button href="/proyectos" variant="secondary" class="shrink-0">
-        Ver proyectos
+      <SectionHeading eyebrow={copy.eyebrow} title={copy.title} description={copy.description} />
+      <Button href={localePath(locale, '/proyectos')} variant="secondary" class="shrink-0">
+        {copy.cta}
         <ArrowRight class="size-4" aria-hidden="true" />
       </Button>
     </div>
 
     <div class="mt-12 grid gap-5 md:grid-cols-3">
-      {projectSlots.map((project) => <ProjectCard project={project} />)}
+      {projects.map((project) => <ProjectCard project={project} />)}
     </div>
   </div>
 </section>

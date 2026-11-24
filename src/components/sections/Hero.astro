@@ -1,15 +1,21 @@
 ---
 import { heroSlides } from '../../data/home';
+import { getTranslations, localePath } from '../../i18n';
+import type { Locale } from '../../i18n';
+
+const locale = (Astro.currentLocale ?? 'es') as Locale;
+const t = getTranslations(locale);
+const slides = heroSlides[locale];
 ---
 
 <section
   data-hero-slider
-  aria-label="Presentación principal de Vivinka"
-  class="relative h-[calc(100vh-80px)] min-h-[611px] w-full overflow-hidden bg-ink"
+  aria-label={t.nav.home}
+  class="relative h-[100svh] min-h-[640px] w-full overflow-hidden bg-ink"
 >
   <ul class="absolute inset-0 block">
     {
-      heroSlides.map((slide, i) => {
+      slides.map((slide, i) => {
         const TitleTag = i === 0 ? 'h1' : 'h2';
         return (
           <li
@@ -32,10 +38,14 @@ import { heroSlides } from '../../data/home';
             {/* Oscurece la imagen para que resalte el texto */}
             <div
               aria-hidden="true"
-              class="absolute inset-0 bg-[linear-gradient(90deg,rgba(6,25,6,0.72)_0%,rgba(6,25,6,0.42)_55%,rgba(0,0,0,0.15)_100%)]"
+              class="absolute inset-0 bg-[linear-gradient(90deg,rgba(6,25,6,0.75)_0%,rgba(6,25,6,0.45)_55%,rgba(0,0,0,0.2)_100%)]"
+            />
+            <div
+              aria-hidden="true"
+              class="absolute inset-x-0 top-0 h-48 bg-[linear-gradient(180deg,rgba(0,0,0,0.55)_0%,rgba(0,0,0,0.15)_60%,transparent_100%)]"
             />
 
-            <div class="relative z-10 mx-auto flex h-full w-full max-w-[1300px] items-center px-[15px] sm:px-8 lg:pb-[70px] lg:pt-[140px]">
+            <div class="relative z-10 mx-auto flex h-full w-full max-w-[1300px] items-center px-[15px] pb-[120px] pt-[120px] sm:px-8 lg:pb-[70px] lg:pt-[140px]">
               <div class="max-w-3xl text-left">
                 <p class="mb-[8px] whitespace-pre-line text-[18px] font-medium leading-[28px] tracking-wide text-white/90 sm:text-[20px]">
                   {slide.kicker}
@@ -49,8 +59,7 @@ import { heroSlides } from '../../data/home';
                 </TitleTag>
 
                 <a
-                  // href={slide.href}
-                  href="#"
+                  href={localePath(locale, slide.href)}
                   class="group relative inline-flex h-[63px] w-[186px] cursor-pointer items-center rounded-[10px] border border-white px-5 text-[20px] font-medium text-white transition-colors duration-200 hover:bg-white hover:text-ink"
                 >
                   <span>{slide.cta}</span>
@@ -71,16 +80,16 @@ import { heroSlides } from '../../data/home';
 
   {/* Pager */}
   <div
-    class="absolute right-[16px] top-[55%] z-20 flex -translate-y-1/2 flex-col items-center gap-3 sm:right-[24px]"
+    class="absolute right-[16px] top-1/2 z-20 flex -translate-y-1/2 flex-col items-center gap-3 sm:right-[24px]"
     role="tablist"
-    aria-label="Seleccionar diapositiva"
+    aria-label={t.common.pagerLabel}
   >
     {
-      heroSlides.map((_, i) => (
+      slides.map((_, i) => (
         <button
           type="button"
           data-hero-dot={i}
-          aria-label={`Ir a la diapositiva ${i + 1}`}
+          aria-label={`${t.common.slideTo} ${i + 1}`}
           aria-current={i === 0 ? 'true' : 'false'}
           class:list={[
             'h-3.5 w-3.5 cursor-pointer rounded-full border border-white transition-colors duration-200',

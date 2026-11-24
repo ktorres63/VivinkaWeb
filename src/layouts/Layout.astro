@@ -1,50 +1,75 @@
 ---
 import '../styles/global.css';
-// import Footer from '../components/layout/Footer.astro';
+import Footer from '../components/layout/Footer.astro';
 import Header from '../components/layout/Header.astro';
-import { site } from '../data/site';
+import WhatsAppButton from '../components/ui/WhatsAppButton.astro';
+import { getTranslations, localePath, locales, stripLocale } from '../i18n';
+import type { Locale } from '../i18n';
 
 interface Props {
   title?: string;
   description?: string;
+  /** `overlay` coloca el encabezado transparente sobre el hero. */
+  headerVariant?: 'solid' | 'overlay';
 }
 
-const { title, description = site.description } = Astro.props;
-const pageTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.tagline}`;
-const siteUrl = Astro.site ?? new URL(site.url);
+const { title, description, headerVariant = 'solid' } = Astro.props;
+
+const locale = (Astro.currentLocale ?? 'es') as Locale;
+const t = getTranslations(locale);
+const siteUrl = Astro.site ?? new URL('https://vivinka.example');
+const basePath = stripLocale(Astro.url.pathname);
+const pageTitle = title ?? t.meta.home.title;
+const pageDescription = description ?? t.meta.home.description;
 const canonical = new URL(Astro.url.pathname, siteUrl);
+
+const alternates = locales.map((code) => ({
+  code,
+  href: new URL(localePath(code, basePath), siteUrl),
+}));
 
 const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
-  name: site.name,
-  description: site.description,
+  name: 'Vivinka',
+  description: t.meta.home.description,
   url: siteUrl.origin,
 };
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang={locale}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
-    <meta name="description" content={description} />
+    <meta name="description" content={pageDescription} />
     <link rel="canonical" href={canonical} />
     <meta name="theme-color" content="#0A6808" />
     <meta name="generator" content={Astro.generator} />
 
+    {
+      alternates.map(({ code, href }) => (
+        <link rel="alternate" hreflang={code} href={href} />
+      ))
+    }
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href={alternates.find((item) => item.code === 'es')?.href ?? canonical}
+    />
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content={site.name} />
-    <meta property="og:locale" content="es_ES" />
+    <meta property="og:site_name" content="Vivinka" />
+    <meta property="og:locale" content={locale === 'es' ? 'es_ES' : 'en_US'} />
     <meta property="og:title" content={pageTitle} />
-    <meta property="og:description" content={description} />
+    <meta property="og:description" content={pageDescription} />
     <meta property="og:url" content={canonical} />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content={pageTitle} />
-    <meta name="twitter:description" content={description} />
+    <meta name="twitter:description" content={pageDescription} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -61,15 +86,17 @@ const organizationSchema = {
       href="#contenido"
       class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-primary focus:px-5 focus:py-3 focus:text-sm focus:font-semibold focus:text-white"
     >
-      Saltar al contenido
+      {t.header.skipToContent}
     </a>
 
-    <Header />
+    <Header variant={headerVariant} />
 
     <main id="contenido" class="flex-1">
       <slot />
     </main>
 
-    <!-- <Footer /> -->
+    <Footer />
+
+    <WhatsAppButton />
   </body>
 </html>
