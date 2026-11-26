@@ -38,7 +38,7 @@ const isActive = (href: string) =>
     isOverlay ? 'fixed inset-x-0 top-0' : 'sticky top-0',
   ]}
 >
-  <div class="container-page flex h-20 items-center justify-between gap-4">
+  <div class="container-page flex h-20 items-center justify-between gap-4 sm:h-24">
     <a href={localePath(locale, '/')} class="inline-flex items-center" aria-label={t.header.home}>
       {
         isOverlay ? (
@@ -48,7 +48,7 @@ const isActive = (href: string) =>
               alt="Vivinka"
               width="768"
               height="325"
-              class="header-logo header-logo--light h-10 w-auto object-contain sm:h-11"
+              class="header-logo header-logo--light h-12 w-auto object-contain sm:h-16"
             />
             <img
               src="/images/vivinkaLogo.png"
@@ -56,7 +56,7 @@ const isActive = (href: string) =>
               aria-hidden="true"
               width="768"
               height="325"
-              class="header-logo header-logo--dark h-10 w-auto object-contain sm:h-11"
+              class="header-logo header-logo--dark h-12 w-auto object-contain sm:h-16"
             />
           </>
         ) : (
@@ -65,7 +65,7 @@ const isActive = (href: string) =>
             alt="Vivinka"
             width="768"
             height="325"
-            class="header-logo h-12 w-auto object-contain sm:h-14"
+            class="header-logo h-12 w-auto object-contain sm:h-16"
           />
         )
       }

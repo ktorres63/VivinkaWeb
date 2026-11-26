@@ -33,7 +33,7 @@ export interface ContactChannel {
   href?: string;
 }
 
-export type SocialIcon = 'instagram' | 'facebook' | 'youtube' | 'mail';
+export type SocialIcon = 'instagram' | 'facebook' | 'youtube' | 'tiktok' | 'mail';
 
 export interface SocialLink {
   id: string;
@@ -107,9 +107,8 @@ export const contactChannels: Record<Locale, ContactChannel[]> = {
  * TODO: sustituir `href` por los perfiles oficiales de Vivinka.
  */
 export const socialLinks: SocialLink[] = [
-  { id: 'instagram', label: 'Instagram', icon: 'instagram', href: '#' },
-  { id: 'facebook', label: 'Facebook', icon: 'facebook', href: '#' },
-  { id: 'youtube', label: 'YouTube', icon: 'youtube', href: '#' },
+  { id: 'facebook', label: 'Facebook', icon: 'facebook', href: 'https://www.facebook.com/people/Vivinka/61596677252084/?rdid=N4MQUKdxcw6HaGLd&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1CThyHEqY3%2F' },
+  { id: 'tiktok', label: 'TikTok', icon: 'tiktok', href: 'https://www.tiktok.com/@vivinkaturismo?_r=1&_t=ZS-9Bg4UEnqg1U' },
   { id: 'mail', label: 'Email', icon: 'mail', href: '#' },
 ];
 
